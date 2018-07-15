@@ -21,33 +21,35 @@ const state = {
 
 const getters = {
     getCurrQuestion: state => state.currQuestion,
-    getResults: state => {
-        return `${state.correctQuestions.length}/${state.details.numberOfQuestions}`;
-    },
-    isQuestionAnswered: state => state.currQuestion.isCorrect || state.currQuestion.isIncorrect
+    getResults: state => `${state.correctQuestions.length}/${state.details.numberOfQuestions}`,
+    isQuestionAnswered: state => state.currQuestion.isCorrect || state.currQuestion.isIncorrect,
+    isCorrect: state => state.currQuestion.isCorrect,
+    isIncorrect: state => state.currQuestion.isIncorrect
 };
 
 const mutations = {
     setQuizDetails: (state, details) => {
-        state.details = details;
+        Vue.set(state, 'details', details)
     },
     setQuestions: (state, questions) => {
         Vue.set(state, 'questions', questions);
     },
     setCurrQuestion: (state, question) => {
         Vue.set(state.currQuestion, 'question', question);
-        state.isCorrect = false;
-        state.isIncorrect = false;
+        Vue.set(state.currQuestion, 'isCorrect', false);
+        Vue.set(state.currQuestion, 'isIncorrect', false);
     },
     setQuestionAnswer: (state, answer) => {
         if (state.currQuestion.question.correct_answer === answer) {
-            state.correctQuestions.push(state.currQuestion);
-            state.isCorrect = true;
-            state.isIncorrect = false;
+            const correctQuestions = [...state.correctQuestions, state.currQuestion];
+            Vue.set(state, 'correctQuestions', correctQuestions)
+            Vue.set(state.currQuestion, 'isCorrect', true);
+            Vue.set(state.currQuestion, 'isIncorrect', false);
         } else {
-            state.incorrectQuestions.push(state.currQuestion);
-            state.isCorrect = false;
-            state.isIncorrect = true;
+            const incorrectQuestions = [...state.incorrectQuestions, state.currQuestion];
+            Vue.set(state, 'incorrectQuestions', incorrectQuestions);
+            Vue.set(state.currQuestion, 'isCorrect', false);
+            Vue.set(state.currQuestion, 'isIncorrect', true);
         }
     }
 };
