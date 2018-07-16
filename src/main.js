@@ -7,6 +7,7 @@ import App from './App.vue'
 import FrontPage from './components/FrontPage.vue';
 import Categories from './components/Categories.vue';
 import Question from './components/Question.vue';
+import Results from './components/Results.vue';
 
 Vue.config.productionTip = false
 
@@ -17,7 +18,8 @@ export const router = new VueRouter({
   routes: [
     { path: '/', component: FrontPage },
     { path: '/categories', component: Categories },
-    { path: '/question', component: Question }
+    { path: '/question', component: Question },
+    { path: '/results', component: Results }
   ]
 });
 

@@ -7,7 +7,7 @@ import { router } from '../../main';
 const state = {
     details: {
         category: '',
-        numberOfQuestions: 0,
+        numberOfQuestions: 1,
     },
     questions: [],
     correctQuestions: [],
@@ -24,7 +24,8 @@ const getters = {
     getResults: state => `${state.correctQuestions.length}/${state.details.numberOfQuestions}`,
     isQuestionAnswered: state => state.currQuestion.isCorrect || state.currQuestion.isIncorrect,
     isCorrect: state => state.currQuestion.isCorrect,
-    isIncorrect: state => state.currQuestion.isIncorrect
+    isIncorrect: state => state.currQuestion.isIncorrect,
+    getNumberOfQuestions: state => state.details.numberOfQuestions
 };
 
 const mutations = {

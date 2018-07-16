@@ -1,5 +1,6 @@
 <template>
     <div v-if="getCurrQuestion">
+        {{ `${getCurrQuestion.question.number} / ${getNumberOfQuestions}` }}
         <h3 v-html="getCurrQuestion.question.question"></h3>
         <div v-if="isCorrect">Good job you got it right!</div>
         <div v-if="isIncorrect">Oh no! You got it wrong.</div>
@@ -7,10 +8,10 @@
             v-for="(answer, index) in getCurrQuestion.question.answers" 
             :key="answer"
             :value="answer"
+            v-html="`${index + 1}. ${answer}`"
             :class="answer === selectedAnswer ? 'selected' : 'button'"
             @click="selectAnswer"
         >
-            {{ `${index + 1}. ${answer}` }}
         </button>
         <button :disabled="isQuestionAnswered" @click="answerQuestion(selectedAnswer)">Submit</button>
         <button :disabled="!isQuestionAnswered" @click="setupQuestion">Next</button>
@@ -26,7 +27,13 @@
                 selectedAnswer: null
             }
         },
-        computed: mapGetters(['getCurrQuestion', 'isQuestionAnswered', 'isCorrect', 'isIncorrect']),
+        computed: mapGetters([
+            'getCurrQuestion', 
+            'isQuestionAnswered', 
+            'isCorrect', 
+            'isIncorrect', 
+            'getNumberOfQuestions'
+            ]),
         methods: {
             ...mapActions(['setupQuestion', 'answerQuestion']),
             selectAnswer(event) {
