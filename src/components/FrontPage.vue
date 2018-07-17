@@ -1,7 +1,14 @@
 <template>
-    <div>
-        <h1>TriviaQuiz</h1>
-        <router-link to='/categories'> Start a quiz</router-link>
+    <div class="container">
+        <div class="box">
+            <h1>Trivia Quiz</h1>
+            <router-link 
+                to='/categories'
+                class="button"
+            > 
+                Start
+            </router-link>
+        </div>
     </div>
 </template>
 
@@ -10,3 +17,11 @@
         name: 'FrontPage'
     }
 </script>
+
+<style scoped>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
